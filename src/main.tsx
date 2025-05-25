@@ -1,13 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
-import "@/styles/globals.css";
-import App from "./App.tsx";
-import { Provider } from "./provider.tsx";
+import { configureStore } from '@reduxjs/toolkit';
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+import '@/styles/globals.css';
+import { Provider as ReduxProvider } from 'react-redux';
+import App from './App.tsx';
+import { Provider } from './provider.tsx';
+import rootReducer from './reducers';
+
+const reduxStore = configureStore({
+  reducer: rootReducer
+});
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider>
@@ -23,8 +31,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           rtl={false}
           theme="dark"
         />
-        <App />
+        <ReduxProvider store={reduxStore}>
+          <App />
+        </ReduxProvider>
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

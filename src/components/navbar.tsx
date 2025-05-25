@@ -1,6 +1,6 @@
-import { Button } from "@heroui/button";
-import { Input } from "@heroui/input";
-import { Link } from "@heroui/link";
+import { Button } from '@heroui/button';
+import { Input } from '@heroui/input';
+import { Link } from '@heroui/link';
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
@@ -9,30 +9,38 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@heroui/navbar";
-import { link as linkStyles } from "@heroui/theme";
-import clsx from "clsx";
+} from '@heroui/navbar';
+import { link as linkStyles } from '@heroui/theme';
+import clsx from 'clsx';
 
-import GpsLocation from "./GpsLocation";
+import GpsLocation from './GpsLocation';
 
+import { logoutUser } from '@/actions/auth';
 import {
   DiscordIcon,
   GithubIcon,
-  HeartFilledIcon,
   Logo,
   SearchIcon,
   TwitterIcon,
-} from "@/components/icons";
-import { ThemeSwitch } from "@/components/theme-switch";
-import { siteConfig } from "@/config/site";
+} from '@/components/icons';
+import { ThemeSwitch } from '@/components/theme-switch';
+import { siteConfig } from '@/config/site';
+import { LogOut } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Navbar = () => {
+  const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const logout = () => dispatch(logoutUser());
+
   const searchInput = (
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
+        inputWrapper: 'bg-default-100',
+        input: 'text-sm',
       }}
       endContent={<GpsLocation />}
       labelPlacement="outside"
@@ -62,8 +70,8 @@ export const Navbar = () => {
             <NavbarItem key={item.href}>
               <Link
                 className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  linkStyles({ color: 'foreground' }),
+                  'data-[active=true]:text-primary data-[active=true]:font-medium'
                 )}
                 color="foreground"
                 href={item.href}
@@ -94,14 +102,17 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
-            isExternal
-            as={Link}
+            // as={Link}
             className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
+            style={{
+              display: auth.user.id ? 'flex' : 'none',
+            }}
+            // href={siteConfig.links.sponsor}
+            startContent={<LogOut className="text-danger" />}
             variant="flat"
+            onPress={()=> logout()}
           >
-            Sponsor
+            Logout
           </Button>
         </NavbarItem>
       </NavbarContent>
@@ -122,10 +133,10 @@ export const Navbar = () => {
               <Link
                 color={
                   index === 2
-                    ? "primary"
+                    ? 'primary'
                     : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                      ? 'danger'
+                      : 'foreground'
                 }
                 href="#"
                 size="lg"
