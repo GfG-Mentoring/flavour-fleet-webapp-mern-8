@@ -7,6 +7,7 @@ import DefaultLayout from "@/layouts/default";
 
 const RestaurantDetailsPage = () => {
   const { id } = useParams();
+  console.log(id)
 
   const restaurantDetails = {
     name: "The Great Pizza",

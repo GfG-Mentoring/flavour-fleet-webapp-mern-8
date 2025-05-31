@@ -13,7 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
 
-  const auth = useSelector(state=> state.auth);
+  const auth = useSelector((state:any)=> state.auth);
 
     useEffect(()=> {
         if(auth.user.id){
@@ -33,7 +33,7 @@ const LoginPage = () => {
                 aria-label="Tabs form"
                 selectedKey={selected}
                 size="md"
-                onSelectionChange={setSelected}
+                onSelectionChange={(value)=> setSelected(value as string)}
               >
                 <Tab key="login" title="Login">
                     <LoginForm/>

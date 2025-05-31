@@ -5,7 +5,7 @@ import { isAxiosError } from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { loginUser } from '@/actions/auth';
+import { loginUser } from '@/reducers/auth';
 import { useDispatch } from 'react-redux';
 
 export const LoginForm = () => {
@@ -20,7 +20,7 @@ export const LoginForm = () => {
     setLoginState((prev) => ({ ...prev, [fieldName]: value }));
   };
 
-  const onFormSubmit = async (e) => {
+  const onFormSubmit = async (e:any) => {
     e.preventDefault();
     try {
       const data = await loginApi(loginState.email, loginState.password);

@@ -15,7 +15,6 @@ import clsx from 'clsx';
 
 import GpsLocation from './GpsLocation';
 
-import { logoutUser } from '@/actions/auth';
 import {
   DiscordIcon,
   GithubIcon,
@@ -25,11 +24,12 @@ import {
 } from '@/components/icons';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { siteConfig } from '@/config/site';
+import { logoutUser } from '@/reducers/auth';
 import { LogOut } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Navbar = () => {
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state:any) => state.auth);
 
   const dispatch = useDispatch();
 

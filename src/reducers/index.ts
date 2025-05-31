@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import { auth } from './auth';
+import { default as auth } from './auth';
+import restaurants from './restaurants';
 
 export default combineReducers({
   auth,
+  restaurants,
 });

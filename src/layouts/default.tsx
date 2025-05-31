@@ -9,7 +9,7 @@ export default function DefaultLayout({
   children: React.ReactNode;
 }) {
 
-  const user = useSelector(state=> state.auth);
+  const user = useSelector((state:any)=> state.auth);
 
   return (
     <div className="relative flex flex-col h-screen">
